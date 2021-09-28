@@ -3,7 +3,8 @@ import json
 import numpy as np
 import pickle
 
-model = pickle.load(open('dt_model_PG_nobias.pkl', 'rb'))
+modelG = pickle.load(open('dt_model_PG_nobias.pkl', 'rb'))
+modelAttribution = pickle.load(open('dt_model_PAttribution_nobias.pkl', 'rb'))
 
 app = Flask(__name__)
 
@@ -18,7 +19,17 @@ def home():
         values = event['values']
         pre = np.array(values)
         pre = pre.reshape(1, -1)
-        res = model.predict(pre)
+        res = modelG.predict(pre)
+        return str(res[0])
+
+@app.route('/predictAttribution', methods = ['GET', 'POST'])
+def home2():
+    if request.method == 'POST':
+        event = json.loads(request.data)
+        values = event['values']
+        pre = np.array(values)
+        pre = pre.reshape(1, -1)
+        res = modelAttribution.predict(pre)
         return str(res[0])
 
 if __name__ == '__main__':
