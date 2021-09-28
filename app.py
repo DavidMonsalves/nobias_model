@@ -3,7 +3,7 @@ import json
 import numpy as np
 import pickle
 
-model = pickle.load(open('dt_model_nobias.pkl', 'rb'))
+model = pickle.load(open('dt_model_PG_nobias.pkl', 'rb'))
 
 app = Flask(__name__)
 
@@ -11,7 +11,7 @@ app = Flask(__name__)
 def man():
     return render_template('home.html')
 
-@app.route('/predict', methods = ['GET', 'POST'])
+@app.route('/predictG', methods = ['GET', 'POST'])
 def home():
     if request.method == 'POST':
         event = json.loads(request.data)
