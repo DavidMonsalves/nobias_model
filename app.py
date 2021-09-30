@@ -1,4 +1,5 @@
 from flask import Flask, request, render_template
+from flask_cors import CORS
 import json
 import numpy as np
 import pickle
@@ -8,6 +9,7 @@ modelAttribution = pickle.load(open('dt_model_PAttribution_nobias.pkl', 'rb'))
 modelPerformance = pickle.load(open('dt_model_PPerformance_nobias.pkl', 'rb'))
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/')
 def man():
